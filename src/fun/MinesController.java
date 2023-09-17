@@ -25,6 +25,7 @@ public class MinesController implements Controller {
 
   private final int DEFAULT_NUM = -3;
   private final int FLAG_NUM = -2;
+  private final int BOMB_NUM = -1;
   private Queue<Tile> mineQueue = new LinkedList<Tile>();
   private Set<Tile> alreadySearched = new HashSet<>();
   private MinedBoard board;
@@ -96,7 +97,7 @@ public class MinesController implements Controller {
     tile.setDefault(false);
 
     // hit bomb -> game over
-    if (tileVal == -1) gameOver();
+    if (tileVal == BOMB_NUM) gameOver();
 
     if (tileVal != 0) {
       updateImage(tileVal, tile.getImageView());
@@ -110,17 +111,16 @@ public class MinesController implements Controller {
       searchTile.setDefault(false);
       if (alreadySearched.contains(searchTile)) continue;
       if (searchTile.getTileNum() == 0) {
-        for (int a = -1; a < 2; a++) {
-          for (int b = -1; b < 2; b++) {
+        for (int a = BOMB_NUM; a < 2; a++) {
+          for (int b = BOMB_NUM; b < 2; b++) {
             int vertVal = a + searchTile.getY();
             int horzVal = b + searchTile.getX();
-            if (vertVal > -1
+            if (vertVal > BOMB_NUM
                 && vertVal < board.getHeight()
-                && horzVal > -1
+                && horzVal > BOMB_NUM
                 && horzVal < board.getWidth()
                 && !alreadySearched.contains(searchTile)) {
-              Tile newTile = board.getTile(vertVal, horzVal);
-              mineQueue.add(newTile);
+              mineQueue.add(board.getTile(vertVal, horzVal));
             }
           }
         }
@@ -141,7 +141,7 @@ public class MinesController implements Controller {
         switch (num) {
           case DEFAULT_NUM -> "default";
           case FLAG_NUM -> "flag";
-          case -1 -> "bomb";
+          case BOMB_NUM -> "bomb";
           case 0 -> "zero";
           case 1 -> "one";
           case 2 -> "two";
@@ -187,7 +187,8 @@ public class MinesController implements Controller {
     for (int i = 0; i < board.getHeight(); i++) {
       for (int j = 0; j < board.getWidth(); j++) {
         Tile tile = board.getTile(i, j);
-        if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-1, tile.getImageView());
+        if (!tile.isFlagged() && tile.getTileNum() == BOMB_NUM)
+          updateImage(BOMB_NUM, tile.getImageView());
       }
     }
   }
@@ -196,7 +197,7 @@ public class MinesController implements Controller {
     for (int i = 0; i < board.getHeight(); i++) {
       for (int j = 0; j < board.getWidth(); j++) {
         Tile tile = board.getTile(i, j);
-        if (!tile.isFlagged() && tile.getTileNum() == -1)
+        if (!tile.isFlagged() && tile.getTileNum() == BOMB_NUM)
           updateImage(FLAG_NUM, tile.getImageView());
       }
     }
