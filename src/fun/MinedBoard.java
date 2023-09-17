@@ -17,7 +17,12 @@ public class MinedBoard {
     createBoard();
     placeMines();
     scrambleMines();
+    populateBoard();
     System.out.println(Arrays.deepToString(board));
+  }
+
+  public int reaveal(int i, int j) {
+    return board[i][j];
   }
 
   private void createBoard() {
@@ -32,7 +37,7 @@ public class MinedBoard {
         j = 0;
         i++;
       }
-      board[i][j] = 1;
+      board[i][j] = -1;
       j++;
       count++;
     }
@@ -52,4 +57,30 @@ public class MinedBoard {
       }
     }
   }
+
+  public void populateBoard() {
+    int mineCounter = 0;
+    for (int i = 0; i < this.height; i++) {
+        for (int j = 0; j < this.width; j++) {
+
+            // if bomb
+            if (board[i][j] == -1) {
+                continue;
+            }
+
+            int[] searchValues = Utility.searchValues(i, j, this.height, this.width);
+
+            for (int a = searchValues[0]; a < searchValues[1]; a++) {
+                for (int b = searchValues[2]; b < searchValues[3]; b++) {
+                    if (board[i + a][j + b] == -1) {
+                        mineCounter++;
+                    }
+                }
+            }
+
+            board[i][j] = mineCounter;
+            mineCounter = 0;
+        }
+    }
+}
 }

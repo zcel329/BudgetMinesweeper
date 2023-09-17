@@ -42,16 +42,18 @@ public class MinesController implements Controller {
         xPosition += squareSize + squareOffset;
 
         // Add an event handler to detect clicks on the square
-        final int squareIndex = i * width + j; // To capture the index in the lambda expression
+        final int iPos = i;
+        final int jPos = j;
         square.setOnMouseClicked(
             new EventHandler<MouseEvent>() {
               @Override
               public void handle(MouseEvent event) {
                 // Call a method to handle the click event for the clicked square
-                handleSquareClick(squareIndex);
+                handleSquareClick(iPos,jPos);
               }
             });
         squarePane.getChildren().add(square);
+
       }
       yPosition += squareSize + squareOffset;
       xPosition = 20;
@@ -59,7 +61,7 @@ public class MinesController implements Controller {
   }
 
   // Method to handle the click event for the clicked square
-  private void handleSquareClick(int squareIndex) {
-    System.out.println("Square at index " + squareIndex);
+  private void handleSquareClick(int i, int j) {
+    System.out.println(board.reaveal(i, j));
   }
 }
