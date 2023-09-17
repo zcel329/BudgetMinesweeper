@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class MinesController implements Controller {
 
@@ -26,6 +27,8 @@ public class MinesController implements Controller {
   private Set<Tile> alreadySearched = new HashSet<>();
 
   private MinedBoard board;
+
+  @FXML private Stage stage;
 
   @FXML private Pane squarePane;
 
@@ -44,6 +47,10 @@ public class MinesController implements Controller {
     double yPosition = 50; // Starting Y position
     double squareSize = 50; // Size of each square
     double squareOffset = 5;
+
+    resizeStage(
+        (int) (xPosition + width * (squareSize + squareOffset) + 2 * (xPosition - squareOffset)),
+        (int) (yPosition + height * (squareSize + squareOffset) + 2 * (yPosition - squareOffset)));
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -92,9 +99,10 @@ public class MinesController implements Controller {
 
     // hit bomb -> game over
     if (tileVal == -1) {
-      
+
       revealNonFlaggedBombs();
-      gameOver();}
+      gameOver();
+    }
 
     if (tileVal != 0) {
       updateImage(tileVal, tile.getImageView());
@@ -130,9 +138,9 @@ public class MinesController implements Controller {
 
   public void handleRightClick(Tile tile) {
     if (tile.isFlagged()) {
-      updateImage(-3,tile.getImageView());
+      updateImage(-3, tile.getImageView());
     } else {
-      updateImage(-2,tile.getImageView());
+      updateImage(-2, tile.getImageView());
     }
     tile.setFlag(!tile.isFlagged());
   }
@@ -184,5 +192,14 @@ public class MinesController implements Controller {
         if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-1, tile.getImageView());
       }
     }
+  }
+
+  public void setStage(Stage stage) {
+    this.stage = stage;
+  }
+
+  private void resizeStage(int a, int b) {
+    stage.setWidth(a);
+    stage.setHeight(b);
   }
 }

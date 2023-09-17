@@ -39,7 +39,7 @@ public class MainApp extends Application {
 
     Parent root = SceneManager.getUiRoot(AppUi.START);
 
-    scene = new Scene(root, 600.0, 600.0);
+    scene = new Scene(root, 600.0, 400.0);
 
     Image icon = new Image(getClass().getResourceAsStream("resources/images/flag.png"));
     stage.getIcons().add(icon);
@@ -48,9 +48,12 @@ public class MainApp extends Application {
     stage.setTitle("Budget Minesweeper");
     stage.setScene(scene);
     stage.show();
+
+    ((MinesController)SceneManager.getController(AppUi.MINES)).setStage(stage);
   }
 
   public static void main(String[] args) {
     launch(args);
   }
+
 }

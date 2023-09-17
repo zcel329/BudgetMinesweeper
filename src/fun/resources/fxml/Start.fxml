@@ -6,17 +6,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fun.StartController">
    <children>
-      <Button fx:id="beginner" layoutX="237.0" layoutY="55.0" mnemonicParsing="false" onAction="#onClick" text="Beginner">
+      <Button fx:id="beginner" layoutX="235.0" layoutY="104.0" mnemonicParsing="false" onAction="#onClick" text="Beginner">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="intermediate" layoutX="216.0" layoutY="138.0" mnemonicParsing="false" onAction="#onClick" text="Intermediate">
+      <Button fx:id="intermediate" layoutX="215.0" layoutY="175.0" mnemonicParsing="false" onAction="#onClick" text="Intermediate">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="expert" layoutX="251.0" layoutY="220.0" mnemonicParsing="false" onAction="#onClick" text="Expert">
+      <Button fx:id="expert" layoutX="249.0" layoutY="246.0" mnemonicParsing="false" onAction="#onClick" text="Expert">
          <font>
             <Font size="24.0" />
          </font>
