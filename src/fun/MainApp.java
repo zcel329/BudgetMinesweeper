@@ -1,5 +1,7 @@
 package fun;
 
+import fun.Controllers.MinesController;
+import fun.Controllers.StartController;
 import fun.SceneManager.AppUi;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class MainApp extends Application {
 
   private static Scene scene;
 
-  public static void setRoot(SceneManager.AppUi appUi) throws IOException {
+  public static void setRoot(AppUi appUi) throws IOException {
     scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 
@@ -33,11 +35,15 @@ public class MainApp extends Application {
   public void start(Stage stage) throws Exception {
 
     SceneManager.addUi(AppUi.START, loadFxml("Start"));
-    SceneManager.addUi(AppUi.MINES, loadFxml("Scene"));
+    SceneManager.addController(AppUi.START,StartController.getInstance());
+
+
+    SceneManager.addUi(AppUi.MINES, loadFxml("Mines"));
+    SceneManager.addController(AppUi.MINES, MinesController.getInstance());
 
     Parent root = SceneManager.getUiRoot(AppUi.START);
 
-    Scene scene = new Scene(root, 600.0, 600.0);
+    scene = new Scene(root, 600.0, 600.0);
 
     stage.setTitle("Minesweeper");
     stage.setScene(scene);
