@@ -1,5 +1,6 @@
 package fun;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class MinedBoard {
@@ -15,13 +16,13 @@ public class MinedBoard {
     this.mines = mines;
     createBoard();
 
-    // System.out.println(Arrays.deepToString(board));
   }
 
   public void initialiseBoard() {
     placeMines();
     scrambleMines();
     populateBoard();
+    System.out.println(Arrays.deepToString(board));
   }
 
   public void setBoardTile(int i, int j, Tile tile) {
@@ -58,9 +59,11 @@ public class MinedBoard {
         int m = random.nextInt(i + 1);
         int n = random.nextInt(j + 1);
 
-        Tile temp = board[i][j];
-        board[i][j] = board[m][n];
-        board[m][n] = temp;
+        
+
+        int temp = board[i][j].getTileNum();
+        board[i][j].setTileNum(board[m][n].getTileNum());
+        board[m][n].setTileNum(temp);
       }
     }
   }
@@ -89,5 +92,17 @@ public class MinedBoard {
         mineCounter = 0;
       }
     }
+  }
+
+  public Tile getTile(int i, int j) {
+    return board[i][j];
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
   }
 }

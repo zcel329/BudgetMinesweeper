@@ -34,4 +34,9 @@ public class Tile {
   public void setTileNum(int num) {
     value = num;
   }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 }
