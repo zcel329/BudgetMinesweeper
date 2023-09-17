@@ -1,7 +1,5 @@
 package fun;
 
-import fun.SceneManager.AppUi;
-import fun.Controller;
 import java.util.HashMap;
 import javafx.scene.Parent;
 

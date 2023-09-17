@@ -2,6 +2,7 @@ package fun.Controllers;
 
 
 import fun.Controller;
+import fun.MinedBoard;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,8 @@ public class MinesController implements Controller {
   public static MinesController getInstance() {
     return instance;
   }
+  
+  MinedBoard board;
 
   @FXML private Pane squarePane;
 
@@ -23,7 +26,9 @@ public class MinesController implements Controller {
     instance = this;
   }
 
-  public void createSquares(int height, int width) {
+  public void createSquares(int height, int width, int mines) {
+
+    board = new MinedBoard(height, width, mines);
 
     double xPosition = 20; // Starting X position
     double yPosition = 50; // Starting Y position
