@@ -21,7 +21,7 @@ public class MinedBoard {
     System.out.println(Arrays.deepToString(board));
   }
 
-  public int reaveal(int i, int j) {
+  public int reveal(int i, int j) {
     return board[i][j];
   }
 

@@ -1,13 +1,13 @@
 package fun.Controllers;
 
-
 import fun.Controller;
 import fun.MinedBoard;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 public class MinesController implements Controller {
 
@@ -16,7 +16,7 @@ public class MinesController implements Controller {
   public static MinesController getInstance() {
     return instance;
   }
-  
+
   MinedBoard board;
 
   @FXML private Pane squarePane;
@@ -32,28 +32,37 @@ public class MinesController implements Controller {
 
     double xPosition = 20; // Starting X position
     double yPosition = 50; // Starting Y position
-    double squareSize = 25; // Size of each square
+    double squareSize = 50; // Size of each square
     double squareOffset = 5;
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Rectangle square = new Rectangle(xPosition, yPosition, squareSize, squareSize);
+        // Rectangle square = new Rectangle(xPosition, yPosition, squareSize, squareSize);
+
+        ImageView imageView = new ImageView();
+        Image image =
+            new Image("C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\testzzz.png"); // Replace with the actual path to your image
+        imageView.setImage(image);
+        imageView.setFitWidth(squareSize); // Set the width
+        imageView.setFitHeight(squareSize); // Set the height
+        imageView.setX(xPosition);
+        imageView.setY(yPosition);
 
         xPosition += squareSize + squareOffset;
 
         // Add an event handler to detect clicks on the square
         final int iPos = i;
         final int jPos = j;
-        square.setOnMouseClicked(
+        imageView.setOnMouseClicked(
             new EventHandler<MouseEvent>() {
               @Override
               public void handle(MouseEvent event) {
                 // Call a method to handle the click event for the clicked square
-                handleSquareClick(iPos,jPos);
+                int num = handleSquareClick(iPos, jPos);
+                updateImage(num, imageView);
               }
             });
-        squarePane.getChildren().add(square);
-
+        squarePane.getChildren().add(imageView);
       }
       yPosition += squareSize + squareOffset;
       xPosition = 20;
@@ -61,7 +70,22 @@ public class MinesController implements Controller {
   }
 
   // Method to handle the click event for the clicked square
-  private void handleSquareClick(int i, int j) {
-    System.out.println(board.reaveal(i, j));
+  private int handleSquareClick(int i, int j) {
+    return board.reveal(i, j);
+  }
+
+  private void updateImage(int num, ImageView imgView) {
+    switch (num) {
+      case 1:
+        imgView.setImage(retrieveImage("one"));
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  private Image retrieveImage(String s) {
+    return new Image("C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\"+s+".png");
   }
 }
