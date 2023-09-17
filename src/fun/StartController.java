@@ -1,8 +1,5 @@
-package fun.Controllers;
+package fun;
 
-import fun.Controller;
-import fun.MainApp;
-import fun.SceneManager;
 import fun.SceneManager.AppUi;
 import java.io.IOException;
 import javafx.event.ActionEvent;

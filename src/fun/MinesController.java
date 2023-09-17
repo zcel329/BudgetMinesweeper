@@ -1,15 +1,9 @@
-package fun.Controllers;
+package fun;
 
-import fun.Controller;
-import fun.MinedBoard;
-import fun.Tile;
-
-import java.util.AbstractQueue;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-import java.util.Stack;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -50,9 +44,7 @@ public class MinesController implements Controller {
       for (int j = 0; j < width; j++) {
         ImageView imageView = new ImageView();
         Image image =
-            new Image(
-                "C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\r"
-                    + "esources\\images\\default.png");
+            new Image(getClass().getResourceAsStream("resources/images/default.png"));
         imageView.setImage(image);
         imageView.setFitWidth(squareSize); // Set the width
         imageView.setFitHeight(squareSize); // Set the height
@@ -102,7 +94,8 @@ public class MinesController implements Controller {
             if (vertVal > -1
                 && vertVal < board.getHeight()
                 && horzVal > -1
-                && horzVal < board.getWidth() && !alreadySearched.contains(searchTile)) {
+                && horzVal < board.getWidth()
+                && !alreadySearched.contains(searchTile)) {
               Tile newTile = board.getTile(vertVal, horzVal);
               mineQueue.add(newTile);
             }
@@ -132,7 +125,6 @@ public class MinesController implements Controller {
   }
 
   private Image retrieveImage(String s) {
-    return new Image(
-        "C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\" + s + ".png");
+    return new Image(getClass().getResourceAsStream("resources/images/" + s + ".png"));
   }
 }

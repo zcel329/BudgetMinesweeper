@@ -1,7 +1,5 @@
 package fun;
 
-import fun.Controllers.MinesController;
-import fun.Controllers.StartController;
 import fun.SceneManager.AppUi;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -23,9 +22,7 @@ public class MainApp extends Application {
   private static Parent loadFxml(final String fxml) throws IOException {
     URL url =
         new File(
-                "C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\fxml\\"
-                    + fxml
-                    + ".fxml")
+                "src\\fun\\resources\\fxml\\"+fxml+".fxml")
             .toURI()
             .toURL();
     return FXMLLoader.load(url);
@@ -44,7 +41,11 @@ public class MainApp extends Application {
 
     scene = new Scene(root, 600.0, 600.0);
 
-    stage.setTitle("Minesweeper");
+    Image icon = new Image(getClass().getResourceAsStream("resources/images/flag.png"));
+    stage.getIcons().add(icon);
+
+
+    stage.setTitle("Budget Minesweeper");
     stage.setScene(scene);
     stage.show();
   }
