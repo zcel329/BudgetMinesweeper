@@ -44,8 +44,8 @@ public class MinesController implements Controller {
 
     double xPosition = 20; // Starting X position
     double yPosition = 50; // Starting Y position
-    double squareSize = 50; // Size of each square
-    double squareOffset = 1;
+    final double squareSize = 50; // Size of each square
+    final double squareOffset = 1;
 
     resizeStage(
         (int) (xPosition + width * (squareSize + squareOffset) + 2 * (xPosition - squareOffset)),
@@ -56,21 +56,19 @@ public class MinesController implements Controller {
         ImageView imageView = new ImageView();
         Image image = new Image(getClass().getResourceAsStream("resources/images/default.png"));
         imageView.setImage(image);
-        imageView.setFitWidth(squareSize); // Set the width
-        imageView.setFitHeight(squareSize); // Set the height
+        imageView.setFitWidth(squareSize);
+        imageView.setFitHeight(squareSize);
         imageView.setX(xPosition);
         imageView.setY(yPosition);
 
         xPosition += squareSize + squareOffset;
 
-        // Add an event handler to detect clicks on the square
         final Tile tile = new Tile(i, j, imageView);
         board.setBoardTile(i, j, tile);
         imageView.setOnMouseClicked(
             new EventHandler<MouseEvent>() {
               @Override
               public void handle(MouseEvent event) {
-                // Call a method to handle the click event for the clicked square
                 MouseButton buttonClicked = event.getButton();
 
                 if (buttonClicked == MouseButton.PRIMARY) {

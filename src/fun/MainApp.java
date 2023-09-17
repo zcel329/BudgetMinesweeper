@@ -19,7 +19,12 @@ public class MainApp extends Application {
   }
 
   private static Parent loadFxml(final String fxml) throws IOException {
-    return FXMLLoader.load(new File("src\\fun\\resources\\fxml\\" + fxml + ".fxml").toURI().toURL());
+    return FXMLLoader.load(
+        new File("src\\fun\\resources\\fxml\\" + fxml + ".fxml").toURI().toURL());
+  }
+
+  public static void main(String[] args) {
+    launch(args);
   }
 
   @Override
@@ -43,9 +48,5 @@ public class MainApp extends Application {
     stage.show();
 
     ((MinesController) SceneManager.getController(AppUi.MINES)).setStage(stage);
-  }
-
-  public static void main(String[] args) {
-    launch(args);
   }
 }
