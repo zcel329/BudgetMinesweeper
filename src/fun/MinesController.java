@@ -75,14 +75,10 @@ public class MinesController implements Controller {
         imageView.setOnMouseClicked(
             event -> {
               MouseButton buttonClicked = event.getButton();
-
-              if (buttonClicked == MouseButton.PRIMARY) {
-                if (tile.isFlagged()) return;
-                handleSquareClick(tile);
-              } else if (buttonClicked == MouseButton.SECONDARY) {
-                if (!tile.isDefault()) return;
+              if (buttonClicked == MouseButton.PRIMARY && !tile.isFlagged())
+                handleLeftClick(tile);
+              else if (buttonClicked == MouseButton.SECONDARY && tile.isDefault())
                 handleRightClick(tile);
-              }
               if (board.checkWin()) gameWin();
             });
         squarePane.getChildren().add(imageView);
@@ -94,7 +90,7 @@ public class MinesController implements Controller {
   }
 
   // Method to handle the click event for the clicked square
-  private void handleSquareClick(Tile tile) {
+  private void handleLeftClick(Tile tile) {
 
     int tileVal = tile.getTileNum();
     tile.setDefault(false);

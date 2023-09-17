@@ -24,7 +24,6 @@ public class TimerCounter {
   }
 
   private void updateTimers(String string) {
-
     ((MinesController) SceneManager.getController(AppUi.MINES)).updateTimerLabel(string);
   }
 }
