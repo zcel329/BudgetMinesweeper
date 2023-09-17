@@ -69,19 +69,13 @@ public class MinedBoard {
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
 
-        // if bomb
-        if (board[i][j].getTileNum() == -1) {
-          continue;
-        }
+        if (board[i][j].getTileNum() == -1) continue;
 
         for (int a = -1; a < 2; a++) {
           for (int b = -1; b < 2; b++) {
-            int vertVal = a + i;
-            int horzVal = b + j;
-            if (vertVal > -1 && vertVal < getHeight() && horzVal > -1 && horzVal < getWidth()) {
-              if (board[i + a][j + b].getTileNum() == -1) {
-                mineCounter++;
-              }
+            // if in array bounds
+            if (a + i > -1 && a + i < getHeight() && b + j > -1 && b + j < getWidth()) {
+              if (board[i + a][j + b].getTileNum() == -1) mineCounter++;
             }
           }
         }
@@ -108,11 +102,7 @@ public class MinedBoard {
     for (int i = 0; i < getHeight(); i++) {
       for (int j = 0; j < getWidth(); j++) {
         Tile tile = getTile(i, j);
-        if (tile.getTileNum() == -1) {
-          //isBomb -> Ignore
-        } else if (tile.getTileNum() != -1 && tile.isDefault()) {
-          return false;
-        }
+        if (tile.getTileNum() != -1 && tile.isDefault()) return false;
       }
     }
     return true;

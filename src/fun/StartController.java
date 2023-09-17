@@ -8,13 +8,39 @@ import javafx.scene.control.Button;
 
 public class StartController implements Controller {
 
+  enum DIFFICULTY {
+    BEGINNER(9, 9, 10),
+    INTERMEDIATE(16, 16, 40),
+    EXPERT(16, 30, 99);
+
+    private final int height;
+    private final int width;
+    private final int mines;
+
+    private DIFFICULTY(int height, int width, int mines) {
+      this.height = height;
+      this.width = width;
+      this.mines = mines;
+    }
+
+    public int getHeight() {
+      return height;
+    }
+
+    public int getWidth() {
+      return width;
+    }
+
+    public int getMines() {
+      return mines;
+    }
+  }
+
   private static StartController instance;
 
   public static StartController getInstance() {
     return instance;
   }
-
-  @FXML private Button beginner, intermediate, expert;
 
   @FXML
   public void initialize() {
@@ -24,23 +50,14 @@ public class StartController implements Controller {
   @FXML
   private void onClick(ActionEvent event) throws IOException {
     String name = ((Button) event.getSource()).getId();
-    int height = 0;
-    int width = 0;
-    int mines = 0;
-    if (name.equals("beginner")) {
-      height = 9;
-      width = 9;
-      mines = 10;
-    } else if (name.equals("intermediate")) {
-      height = 16;
-      width = 16;
-      mines = 40;
+    DIFFICULTY diff = DIFFICULTY.BEGINNER;
+    if (name.equals("intermediate")) {
+      diff = DIFFICULTY.INTERMEDIATE;
     } else if (name.equals("expert")) {
-      height = 16;
-      width = 30;
-      mines = 99;
+      diff = DIFFICULTY.EXPERT;
     }
-    ((MinesController) SceneManager.getController(AppUi.MINES)).createSquares(height, width, mines);
+    ((MinesController) SceneManager.getController(AppUi.MINES))
+        .createSquares(diff.getHeight(), diff.getWidth(), diff.getMines());
     MainApp.setRoot(AppUi.MINES);
 
     TimerCounter timer = new TimerCounter();

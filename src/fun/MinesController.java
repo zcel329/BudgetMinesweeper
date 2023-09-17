@@ -23,15 +23,14 @@ public class MinesController implements Controller {
     return instance;
   }
 
+  private final int DEFAULT_NUM = -3;
+  private final int FLAG_NUM = -2;
   private Queue<Tile> mineQueue = new LinkedList<Tile>();
   private Set<Tile> alreadySearched = new HashSet<>();
-
   private MinedBoard board;
 
   @FXML private Stage stage;
-
   @FXML private Pane squarePane;
-
   @FXML private Label timerLabel;
 
   @FXML
@@ -78,14 +77,10 @@ public class MinesController implements Controller {
                   if (tile.isFlagged()) return;
                   handleSquareClick(tile);
                 } else if (buttonClicked == MouseButton.SECONDARY) {
-                  if (tile.isDefault()) {
-                    handleRightClick(tile);
-                  }
+                  if (!tile.isDefault()) return;
+                  handleRightClick(tile);
                 }
-                if (board.checkWin() == true) {
-                  System.out.println("win");
-                  gameWin();
-                }
+                if (board.checkWin() == true) gameWin();
               }
             });
         squarePane.getChildren().add(imageView);
@@ -103,11 +98,7 @@ public class MinesController implements Controller {
     tile.setDefault(false);
 
     // hit bomb -> game over
-    if (tileVal == -1) {
-
-      
-      gameOver();
-    }
+    if (tileVal == -1) gameOver();
 
     if (tileVal != 0) {
       updateImage(tileVal, tile.getImageView());
@@ -142,19 +133,16 @@ public class MinesController implements Controller {
   }
 
   public void handleRightClick(Tile tile) {
-    if (tile.isFlagged()) {
-      updateImage(-3, tile.getImageView());
-    } else {
-      updateImage(-2, tile.getImageView());
-    }
+    if (tile.isFlagged()) updateImage(DEFAULT_NUM, tile.getImageView());
+    else updateImage(FLAG_NUM, tile.getImageView());
     tile.setFlag(!tile.isFlagged());
   }
 
   private void updateImage(int num, ImageView imgView) {
     String s =
         switch (num) {
-          case -3 -> "default";
-          case -2 -> "flag";
+          case DEFAULT_NUM -> "default";
+          case FLAG_NUM -> "flag";
           case -1 -> "bomb";
           case 0 -> "zero";
           case 1 -> "one";
@@ -210,7 +198,8 @@ public class MinesController implements Controller {
     for (int i = 0; i < board.getHeight(); i++) {
       for (int j = 0; j < board.getWidth(); j++) {
         Tile tile = board.getTile(i, j);
-        if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-2, tile.getImageView());
+        if (!tile.isFlagged() && tile.getTileNum() == -1)
+          updateImage(FLAG_NUM, tile.getImageView());
       }
     }
   }

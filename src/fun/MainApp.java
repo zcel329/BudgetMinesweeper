@@ -3,7 +3,6 @@ package fun;
 import fun.SceneManager.AppUi;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,12 +19,7 @@ public class MainApp extends Application {
   }
 
   private static Parent loadFxml(final String fxml) throws IOException {
-    URL url =
-        new File(
-                "src\\fun\\resources\\fxml\\"+fxml+".fxml")
-            .toURI()
-            .toURL();
-    return FXMLLoader.load(url);
+    return FXMLLoader.load(new File("src\\fun\\resources\\fxml\\" + fxml + ".fxml").toURI().toURL());
   }
 
   @Override
@@ -44,16 +38,14 @@ public class MainApp extends Application {
     Image icon = new Image(getClass().getResourceAsStream("resources/images/flag.png"));
     stage.getIcons().add(icon);
 
-
     stage.setTitle("Budget Minesweeper");
     stage.setScene(scene);
     stage.show();
 
-    ((MinesController)SceneManager.getController(AppUi.MINES)).setStage(stage);
+    ((MinesController) SceneManager.getController(AppUi.MINES)).setStage(stage);
   }
 
   public static void main(String[] args) {
     launch(args);
   }
-
 }
