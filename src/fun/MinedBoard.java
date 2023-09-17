@@ -103,4 +103,5 @@ public class MinedBoard {
   public int getWidth() {
     return width;
   }
+  
 }

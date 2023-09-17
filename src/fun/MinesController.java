@@ -91,7 +91,10 @@ public class MinesController implements Controller {
     tile.setDefault(false);
 
     // hit bomb -> game over
-    if (tileVal == -1) gameOver();
+    if (tileVal == -1) {
+      
+      revealNonFlaggedBombs();
+      gameOver();}
 
     if (tileVal != 0) {
       updateImage(tileVal, tile.getImageView());
@@ -172,5 +175,14 @@ public class MinesController implements Controller {
     alert.setHeaderText(headerText);
     alert.setContentText(message);
     alert.showAndWait();
+  }
+
+  private void revealNonFlaggedBombs() {
+    for (int i = 0; i < board.getHeight(); i++) {
+      for (int j = 0; j < board.getWidth(); j++) {
+        Tile tile = board.getTile(i, j);
+        if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-1, tile.getImageView());
+      }
+    }
   }
 }
