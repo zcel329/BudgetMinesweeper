@@ -9,9 +9,9 @@ public class SceneManager {
     MINES,
   }
 
-  private static HashMap<AppUi, Parent> sceneMap = new HashMap<AppUi, Parent>();
+  private static final HashMap<AppUi, Parent> sceneMap = new HashMap<>();
 
-  private static HashMap<AppUi, Controller> controllers = new HashMap<AppUi, Controller>();
+  private static final HashMap<AppUi, Controller> controllers = new HashMap<>();
 
   public static void addUi(AppUi appUi, Parent uiRoot) {
     sceneMap.put(appUi, uiRoot);

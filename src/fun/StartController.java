@@ -1,7 +1,6 @@
 package fun;
 
 import fun.SceneManager.AppUi;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +16,7 @@ public class StartController implements Controller {
     private final int width;
     private final int mines;
 
-    private DIFFICULTY(int height, int width, int mines) {
+    DIFFICULTY(int height, int width, int mines) {
       this.height = height;
       this.width = width;
       this.mines = mines;
@@ -48,7 +47,7 @@ public class StartController implements Controller {
   }
 
   @FXML
-  private void onClick(ActionEvent event) throws IOException {
+  private void onClick(ActionEvent event) {
     String name = ((Button) event.getSource()).getId();
     DIFFICULTY diff = DIFFICULTY.BEGINNER;
     if (name.equals("intermediate")) {

@@ -27,10 +27,6 @@ public class MinedBoard {
     board[i][j] = tile;
   }
 
-  public int reveal(int i, int j) {
-    return board[i][j].getTileNum();
-  }
-
   private void createBoard() {
     board = new Tile[height][width];
   }
@@ -56,7 +52,6 @@ public class MinedBoard {
       for (int j = this.width - 1; j > 0; j--) {
         int m = random.nextInt(i + 1);
         int n = random.nextInt(j + 1);
-
         int temp = board[i][j].getTileNum();
         board[i][j].setTileNum(board[m][n].getTileNum());
         board[m][n].setTileNum(temp);
@@ -68,9 +63,7 @@ public class MinedBoard {
     int mineCounter = 0;
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
-
         if (board[i][j].getTileNum() == -1) continue;
-
         for (int a = -1; a < 2; a++) {
           for (int b = -1; b < 2; b++) {
             // if in array bounds
@@ -79,7 +72,6 @@ public class MinedBoard {
             }
           }
         }
-
         board[i][j].setTileNum(mineCounter);
         mineCounter = 0;
       }

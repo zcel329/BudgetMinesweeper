@@ -3,9 +3,9 @@ package fun;
 import javafx.scene.image.ImageView;
 
 public class Tile {
-  private int i;
-  private int j;
-  private ImageView imgView;
+  private final int i;
+  private final int j;
+  private final ImageView imgView;
   private int value;
   private boolean flag;
   private boolean isDefault;

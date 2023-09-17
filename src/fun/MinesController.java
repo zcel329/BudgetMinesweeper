@@ -3,28 +3,25 @@ package fun;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MinesController implements Controller {
-  
-  //TODO Make it impossible to lose on first click
-  //TODO Allow multi clearing when clicking on flag
-  //TODO allow spacebar to have functionality
-  //TODO F2 restart
-  //TODO Leaderboard stuff?
-  //TODO Add remaining bombs left
-  //TODO Proper styling?
-  //TODO Happy face thing
+
+  // TODO Make it impossible to lose on first click
+  // TODO Allow multi clearing when clicking on flag
+  // TODO allow spacebar to have functionality
+  // TODO F2 restart
+  // TODO Leaderboard stuff?
+  // TODO Add remaining bombs left
+  // TODO Proper styling?
+  // TODO Happy face thing
 
   private static MinesController instance;
 
@@ -35,8 +32,8 @@ public class MinesController implements Controller {
   private final int DEFAULT_NUM = -3;
   private final int FLAG_NUM = -2;
   private final int BOMB_NUM = -1;
-  private Queue<Tile> mineQueue = new LinkedList<Tile>();
-  private Set<Tile> alreadySearched = new HashSet<>();
+  private final Queue<Tile> mineQueue = new LinkedList<>();
+  private final HashSet<Tile> alreadySearched = new HashSet<>();
   private MinedBoard board;
 
   @FXML private Stage stage;
@@ -76,20 +73,17 @@ public class MinesController implements Controller {
         final Tile tile = new Tile(i, j, imageView);
         board.setBoardTile(i, j, tile);
         imageView.setOnMouseClicked(
-            new EventHandler<MouseEvent>() {
-              @Override
-              public void handle(MouseEvent event) {
-                MouseButton buttonClicked = event.getButton();
+            event -> {
+              MouseButton buttonClicked = event.getButton();
 
-                if (buttonClicked == MouseButton.PRIMARY) {
-                  if (tile.isFlagged()) return;
-                  handleSquareClick(tile);
-                } else if (buttonClicked == MouseButton.SECONDARY) {
-                  if (!tile.isDefault()) return;
-                  handleRightClick(tile);
-                }
-                if (board.checkWin() == true) gameWin();
+              if (buttonClicked == MouseButton.PRIMARY) {
+                if (tile.isFlagged()) return;
+                handleSquareClick(tile);
+              } else if (buttonClicked == MouseButton.SECONDARY) {
+                if (!tile.isDefault()) return;
+                handleRightClick(tile);
               }
+              if (board.checkWin()) gameWin();
             });
         squarePane.getChildren().add(imageView);
       }

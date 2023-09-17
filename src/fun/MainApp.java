@@ -14,7 +14,7 @@ public class MainApp extends Application {
 
   private static Scene scene;
 
-  public static void setRoot(AppUi appUi) throws IOException {
+  public static void setRoot(AppUi appUi) {
     scene.setRoot(SceneManager.getUiRoot(appUi));
   }
 

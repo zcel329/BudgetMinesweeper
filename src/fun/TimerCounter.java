@@ -15,13 +15,8 @@ public class TimerCounter {
               @Override
               public void run() {
                 timeCounter[0]++;
-                if (timeCounter[0] > 1000) {
-                  this.cancel();
-                }
-                Platform.runLater(
-                    () -> {
-                      updateTimers(String.valueOf(timeCounter[0]));
-                    });
+                if (timeCounter[0] > 1000) this.cancel();
+                Platform.runLater(() -> updateTimers(String.valueOf(timeCounter[0])));
               }
             },
             0,
