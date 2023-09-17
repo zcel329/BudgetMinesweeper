@@ -60,6 +60,6 @@ public class StartController implements Controller {
     MainApp.setRoot(AppUi.MINES);
 
     TimerCounter timer = new TimerCounter();
-    timer.timerStart();
+    timer.start();
   }
 }

@@ -7,7 +7,7 @@ import javafx.application.Platform;
 
 public class TimerCounter {
 
-  public void timerStart() {
+  public void start() {
     final int[] timeCounter = new int[1];
     new Timer()
         .schedule(

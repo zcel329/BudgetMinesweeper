@@ -20,7 +20,6 @@ public class MinedBoard {
     placeMines();
     scrambleMines();
     populateBoard();
-    // System.out.println(Arrays.deepToString(board));
   }
 
   public void setBoardTile(int i, int j, Tile tile) {
@@ -67,9 +66,8 @@ public class MinedBoard {
         for (int a = -1; a < 2; a++) {
           for (int b = -1; b < 2; b++) {
             // if in array bounds
-            if (a + i > -1 && a + i < getHeight() && b + j > -1 && b + j < getWidth()) {
+            if (a + i > -1 && a + i < getHeight() && b + j > -1 && b + j < getWidth())
               if (board[i + a][j + b].getTileNum() == -1) mineCounter++;
-            }
           }
         }
         board[i][j].setTileNum(mineCounter);
