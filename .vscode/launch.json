@@ -10,7 +10,7 @@
       "request": "launch",
       "mainClass": "fun.MainApp",
       "projectName": "Minesweeper_c853a58f",
-            "vmArgs": "--module-path \"C:\\Users\\Zach\\Desktop\\javafx-sdk-20.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:\\Users\\Zach\\Desktop\\Minesweeper\\lib\\javafx-sdk-20.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
@@ -18,13 +18,5 @@
       "request": "launch",
       "mainClass": "${file}"
     },
-    {
-      "type": "java",
-      "name": "MainApp",
-      "request": "launch",
-      "mainClass": "MainApp",
-      "projectName": "Minesweeper_c853a58f",
-      "vmArgs": "--module-path \"C:\\Users\\Zach\\Desktop\\javafx-sdk-20.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
-    }
   ]
 }
