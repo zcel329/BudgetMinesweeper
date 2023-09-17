@@ -103,5 +103,18 @@ public class MinedBoard {
   public int getWidth() {
     return width;
   }
-  
+
+  public boolean checkWin() {
+    for (int i = 0; i < getHeight(); i++) {
+      for (int j = 0; j < getWidth(); j++) {
+        Tile tile = getTile(i, j);
+        if (tile.getTileNum() == -1) {
+          //isBomb -> Ignore
+        } else if (tile.getTileNum() != -1 && tile.isDefault()) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

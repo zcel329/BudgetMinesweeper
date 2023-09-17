@@ -46,7 +46,7 @@ public class MinesController implements Controller {
     double xPosition = 20; // Starting X position
     double yPosition = 50; // Starting Y position
     double squareSize = 50; // Size of each square
-    double squareOffset = 5;
+    double squareOffset = 1;
 
     resizeStage(
         (int) (xPosition + width * (squareSize + squareOffset) + 2 * (xPosition - squareOffset)),
@@ -82,6 +82,10 @@ public class MinesController implements Controller {
                     handleRightClick(tile);
                   }
                 }
+                if (board.checkWin() == true) {
+                  System.out.println("win");
+                  gameWin();
+                }
               }
             });
         squarePane.getChildren().add(imageView);
@@ -94,13 +98,14 @@ public class MinesController implements Controller {
 
   // Method to handle the click event for the clicked square
   private void handleSquareClick(Tile tile) {
+
     int tileVal = tile.getTileNum();
     tile.setDefault(false);
 
     // hit bomb -> game over
     if (tileVal == -1) {
 
-      revealNonFlaggedBombs();
+      
       gameOver();
     }
 
@@ -173,7 +178,14 @@ public class MinesController implements Controller {
   }
 
   private void gameOver() {
+    revealNonFlaggedBombs();
     showDialog("Game Over", "You've lost! :(", "You clicked a bomb and blew up!");
+    System.exit(0);
+  }
+
+  private void gameWin() {
+    flagRemainingBombs();
+    showDialog("Game Win", "You've won! :)", "words");
     System.exit(0);
   }
 
@@ -190,6 +202,15 @@ public class MinesController implements Controller {
       for (int j = 0; j < board.getWidth(); j++) {
         Tile tile = board.getTile(i, j);
         if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-1, tile.getImageView());
+      }
+    }
+  }
+
+  private void flagRemainingBombs() {
+    for (int i = 0; i < board.getHeight(); i++) {
+      for (int j = 0; j < board.getWidth(); j++) {
+        Tile tile = board.getTile(i, j);
+        if (!tile.isFlagged() && tile.getTileNum() == -1) updateImage(-2, tile.getImageView());
       }
     }
   }
