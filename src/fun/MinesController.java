@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -20,10 +21,9 @@ public class MinesController implements Controller {
   public static MinesController getInstance() {
     return instance;
   }
+
   private Queue<Tile> mineQueue = new LinkedList<Tile>();
   private Set<Tile> alreadySearched = new HashSet<>();
-
-
 
   private MinedBoard board;
 
@@ -48,8 +48,7 @@ public class MinesController implements Controller {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         ImageView imageView = new ImageView();
-        Image image =
-            new Image(getClass().getResourceAsStream("resources/images/default.png"));
+        Image image = new Image(getClass().getResourceAsStream("resources/images/default.png"));
         imageView.setImage(image);
         imageView.setFitWidth(squareSize); // Set the width
         imageView.setFitHeight(squareSize); // Set the height
@@ -66,7 +65,16 @@ public class MinesController implements Controller {
               @Override
               public void handle(MouseEvent event) {
                 // Call a method to handle the click event for the clicked square
-                handleSquareClick(tile);
+                MouseButton buttonClicked = event.getButton();
+
+                if (buttonClicked == MouseButton.PRIMARY) {
+                  if (tile.isFlagged()) return;
+                  handleSquareClick(tile);
+                } else if (buttonClicked == MouseButton.SECONDARY) {
+                  if (tile.isDefault()) {
+                    handleRightClick(tile);
+                  }
+                }
               }
             });
         squarePane.getChildren().add(imageView);
@@ -80,6 +88,7 @@ public class MinesController implements Controller {
   // Method to handle the click event for the clicked square
   private void handleSquareClick(Tile tile) {
     int tileVal = tile.getTileNum();
+    tile.setDefault(false);
 
     // hit bomb -> game over
     if (tileVal == -1) gameOver();
@@ -93,6 +102,7 @@ public class MinesController implements Controller {
     mineQueue.add(tile);
     while (!mineQueue.isEmpty()) {
       Tile searchTile = mineQueue.remove();
+      searchTile.setDefault(false);
       if (alreadySearched.contains(searchTile)) continue;
       if (searchTile.getTileNum() == 0) {
         for (int a = -1; a < 2; a++) {
@@ -115,9 +125,20 @@ public class MinesController implements Controller {
     }
   }
 
+  public void handleRightClick(Tile tile) {
+    if (tile.isFlagged()) {
+      updateImage(-3,tile.getImageView());
+    } else {
+      updateImage(-2,tile.getImageView());
+    }
+    tile.setFlag(!tile.isFlagged());
+  }
+
   private void updateImage(int num, ImageView imgView) {
     String s =
         switch (num) {
+          case -3 -> "default";
+          case -2 -> "flag";
           case -1 -> "bomb";
           case 0 -> "zero";
           case 1 -> "one";
