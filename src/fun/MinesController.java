@@ -16,6 +16,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MinesController implements Controller {
+  
+  //TODO Make it impossible to lose on first click
+  //TODO Allow multi clearing when clicking on flag
+  //TODO allow spacebar to have functionality
+  //TODO F2 restart
+  //TODO Leaderboard stuff?
+  //TODO Add remaining bombs left
+  //TODO Proper styling?
+  //TODO Happy face thing
 
   private static MinesController instance;
 
