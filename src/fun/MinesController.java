@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.Set;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -80,6 +81,9 @@ public class MinesController implements Controller {
   private void handleSquareClick(Tile tile) {
     int tileVal = tile.getTileNum();
 
+    // hit bomb -> game over
+    if (tileVal == -1) gameOver();
+
     if (tileVal != 0) {
       updateImage(tileVal, tile.getImageView());
       alreadySearched.add(tile);
@@ -134,5 +138,18 @@ public class MinesController implements Controller {
 
   public void updateTimerLabel(String s) {
     timerLabel.setText(s);
+  }
+
+  private void gameOver() {
+    showDialog("Game Over", "You've lost! :(", "You clicked a bomb and blew up!");
+    System.exit(0);
+  }
+
+  private static void showDialog(String title, String headerText, String message) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle(title);
+    alert.setHeaderText(headerText);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }
