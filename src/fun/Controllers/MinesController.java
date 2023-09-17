@@ -37,11 +37,21 @@ public class MinesController implements Controller {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        // Rectangle square = new Rectangle(xPosition, yPosition, squareSize, squareSize);
+        // Rectangle square = new Rectangle(xPosition, yPosition, squareSize,
+        // squareSize);
 
         ImageView imageView = new ImageView();
         Image image =
-            new Image("C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\testzzz.png"); // Replace with the actual path to your image
+            new Image(
+                "C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\r"
+                    + "esources\\images\\testzzz.png"); // Replace
+        // with
+        // the
+        // actual
+        // path
+        // to
+        // your
+        // image
         imageView.setImage(image);
         imageView.setFitWidth(squareSize); // Set the width
         imageView.setFitHeight(squareSize); // Set the height
@@ -75,17 +85,21 @@ public class MinesController implements Controller {
   }
 
   private void updateImage(int num, ImageView imgView) {
-    switch (num) {
-      case 1:
-        imgView.setImage(retrieveImage("one"));
-        break;
-    
-      default:
-        break;
-    }
+    String s;
+    switch(num) {
+      case 0 -> s = "zero";
+      case 1 -> s = "one";
+      case 2 -> s = "two";
+      case 3 -> s = "three";
+      default -> s = null;
+  };
+  
+    if (s == null) return;
+    imgView.setImage(retrieveImage(s));
   }
 
   private Image retrieveImage(String s) {
-    return new Image("C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\"+s+".png");
+    return new Image(
+        "C:\\Users\\Zach\\Desktop\\Minesweeper\\src\\fun\\resources\\images\\" + s + ".png");
   }
 }

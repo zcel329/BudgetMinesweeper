@@ -35,8 +35,7 @@ public class MainApp extends Application {
   public void start(Stage stage) throws Exception {
 
     SceneManager.addUi(AppUi.START, loadFxml("Start"));
-    SceneManager.addController(AppUi.START,StartController.getInstance());
-
+    SceneManager.addController(AppUi.START, StartController.getInstance());
 
     SceneManager.addUi(AppUi.MINES, loadFxml("Mines"));
     SceneManager.addController(AppUi.MINES, MinesController.getInstance());
