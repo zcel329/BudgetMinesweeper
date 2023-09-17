@@ -1,6 +1,5 @@
 package fun;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class MinedBoard {
@@ -15,14 +14,13 @@ public class MinedBoard {
     this.width = width;
     this.mines = mines;
     createBoard();
-
   }
 
   public void initialiseBoard() {
     placeMines();
     scrambleMines();
     populateBoard();
-    System.out.println(Arrays.deepToString(board));
+    // System.out.println(Arrays.deepToString(board));
   }
 
   public void setBoardTile(int i, int j, Tile tile) {
@@ -59,8 +57,6 @@ public class MinedBoard {
         int m = random.nextInt(i + 1);
         int n = random.nextInt(j + 1);
 
-        
-
         int temp = board[i][j].getTileNum();
         board[i][j].setTileNum(board[m][n].getTileNum());
         board[m][n].setTileNum(temp);
@@ -78,12 +74,14 @@ public class MinedBoard {
           continue;
         }
 
-        int[] searchValues = Utility.searchValues(i, j, this.height, this.width);
-
-        for (int a = searchValues[0]; a < searchValues[1]; a++) {
-          for (int b = searchValues[2]; b < searchValues[3]; b++) {
-            if (board[i + a][j + b].getTileNum() == -1) {
-              mineCounter++;
+        for (int a = -1; a < 2; a++) {
+          for (int b = -1; b < 2; b++) {
+            int vertVal = a + i;
+            int horzVal = b + j;
+            if (vertVal > -1 && vertVal < getHeight() && horzVal > -1 && horzVal < getWidth()) {
+              if (board[i + a][j + b].getTileNum() == -1) {
+                mineCounter++;
+              }
             }
           }
         }
