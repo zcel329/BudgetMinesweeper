@@ -42,5 +42,8 @@ public class StartController implements Controller {
     }
     ((MinesController) SceneManager.getController(AppUi.MINES)).createSquares(height, width, mines);
     MainApp.setRoot(AppUi.MINES);
+
+    TimerCounter timer = new TimerCounter();
+    timer.timerStart();
   }
 }

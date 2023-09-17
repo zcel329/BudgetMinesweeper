@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.Set;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -13,18 +14,21 @@ import javafx.scene.layout.Pane;
 
 public class MinesController implements Controller {
 
-  private Queue<Tile> mineQueue = new LinkedList<Tile>();
-  private Set<Tile> alreadySearched = new HashSet<>();
-
   private static MinesController instance;
 
   public static MinesController getInstance() {
     return instance;
   }
+  private Queue<Tile> mineQueue = new LinkedList<Tile>();
+  private Set<Tile> alreadySearched = new HashSet<>();
 
-  MinedBoard board;
+
+
+  private MinedBoard board;
 
   @FXML private Pane squarePane;
+
+  @FXML private Label timerLabel;
 
   @FXML
   public void initialize() {
@@ -126,5 +130,9 @@ public class MinesController implements Controller {
 
   private Image retrieveImage(String s) {
     return new Image(getClass().getResourceAsStream("resources/images/" + s + ".png"));
+  }
+
+  public void updateTimerLabel(String s) {
+    timerLabel.setText(s);
   }
 }
