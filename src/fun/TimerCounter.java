@@ -6,21 +6,36 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 public class TimerCounter {
+  private Timer timer;
+  private int timeCounter;
 
   public void start() {
-    final int[] timeCounter = new int[1];
-    new Timer()
-        .schedule(
-            new TimerTask() {
-              @Override
-              public void run() {
-                timeCounter[0]++;
-                if (timeCounter[0] > 1000) this.cancel();
-                Platform.runLater(() -> updateTimers(String.valueOf(timeCounter[0])));
-              }
-            },
-            0,
-            1000);
+    timeCounter = 0;
+    timer = new Timer();
+    timer.schedule(
+        new TimerTask() {
+          @Override
+          public void run() {
+            timeCounter++;
+            if (timeCounter > 1000) {
+              this.cancel();
+              timer.cancel(); // Cancel the Timer when the TimerTask is canceled
+            }
+            Platform.runLater(() -> updateTimers(String.valueOf(timeCounter)));
+          }
+        },
+        0,
+        1000);
+  }
+
+  public void stop() {
+    if (timer != null) {
+      timer.cancel();
+    }
+  }
+
+  public int getTime() {
+    return timeCounter;
   }
 
   private void updateTimers(String string) {

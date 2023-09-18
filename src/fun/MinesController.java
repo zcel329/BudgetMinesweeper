@@ -35,6 +35,7 @@ public class MinesController implements Controller {
   private final Queue<Tile> mineQueue = new LinkedList<>();
   private final HashSet<Tile> alreadySearched = new HashSet<>();
   private MinedBoard board;
+  private TimerCounter timer;
 
   @FXML private Stage stage;
   @FXML private Pane squarePane;
@@ -43,10 +44,10 @@ public class MinesController implements Controller {
   @FXML
   public void initialize() {
     instance = this;
+    timer = new TimerCounter();
   }
 
   public void createSquares(int height, int width, int mines) {
-
     board = new MinedBoard(height, width, mines);
 
     double xPosition = 20; // Starting X position
@@ -75,8 +76,7 @@ public class MinesController implements Controller {
         imageView.setOnMouseClicked(
             event -> {
               MouseButton buttonClicked = event.getButton();
-              if (buttonClicked == MouseButton.PRIMARY && !tile.isFlagged())
-                handleLeftClick(tile);
+              if (buttonClicked == MouseButton.PRIMARY && !tile.isFlagged()) handleLeftClick(tile);
               else if (buttonClicked == MouseButton.SECONDARY && tile.isDefault())
                 handleRightClick(tile);
               if (board.checkWin()) gameWin();
@@ -87,6 +87,7 @@ public class MinesController implements Controller {
       xPosition = 20;
     }
     board.initialiseBoard();
+    timer.start();
   }
 
   // Method to handle the click event for the clicked square
@@ -163,14 +164,17 @@ public class MinesController implements Controller {
   }
 
   private void gameOver() {
+    timer.stop();
     revealNonFlaggedBombs();
     showDialog("Game Over", "You've lost! :(", "You clicked a bomb and blew up!");
     System.exit(0);
   }
 
   private void gameWin() {
+    timer.stop();
     flagRemainingBombs();
-    showDialog("Game Win", "You've won! :)", "words");
+    showDialog(
+        "Game Win", "You've won! :)", "You beat the game in " + timer.getTime() + " seconds!");
     System.exit(0);
   }
 
