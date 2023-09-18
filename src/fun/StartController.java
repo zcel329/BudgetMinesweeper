@@ -55,8 +55,7 @@ public class StartController implements Controller {
     } else if (name.equals("expert")) {
       diff = DIFFICULTY.EXPERT;
     }
-    ((MinesController) SceneManager.getController(AppUi.MINES))
-        .createSquares(diff.getHeight(), diff.getWidth(), diff.getMines());
+    MinesController.getInstance().createSquares(diff.getHeight(), diff.getWidth(), diff.getMines());
     MainApp.setRoot(AppUi.MINES);
 
     TimerCounter timer = new TimerCounter();

@@ -38,7 +38,7 @@ public class MinesController implements Controller {
   private MinedBoard board;
   private TimerCounter timer;
 
-  @FXML private Stage stage;
+  @FXML private static Stage stage;
   @FXML private Pane squarePane;
   @FXML private Label timerLabel;
 
@@ -207,8 +207,8 @@ public class MinesController implements Controller {
     }
   }
 
-  public void setStage(Stage stage) {
-    this.stage = stage;
+  public static void setStage(Stage stg) {
+    stage = stg;
   }
 
   private void resizeStage(int a, int b) {

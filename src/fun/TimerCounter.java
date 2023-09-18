@@ -1,6 +1,5 @@
 package fun;
 
-import fun.SceneManager.AppUi;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
@@ -39,6 +38,6 @@ public class TimerCounter {
   }
 
   private void updateTimers(String string) {
-    ((MinesController) SceneManager.getController(AppUi.MINES)).updateTimerLabel(string);
+    MinesController.getInstance().updateTimerLabel(string);
   }
 }
