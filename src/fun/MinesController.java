@@ -56,7 +56,7 @@ public class MinesController implements Controller {
     final double squareSize = 50; // Size of each square
     final double squareOffset = 1;
 
-    resizeStage(
+    MainApp.resizeStage(
         (int) (xPosition + width * (squareSize + squareOffset) + 2 * (xPosition - squareOffset)),
         (int) (yPosition + height * (squareSize + squareOffset) + 2 * (yPosition - squareOffset)));
 
@@ -207,12 +207,7 @@ public class MinesController implements Controller {
     }
   }
 
-  public static void setStage(Stage stg) {
-    stage = stg;
-  }
-
-  private void resizeStage(int a, int b) {
-    stage.setWidth(a);
-    stage.setHeight(b);
+  public static void setStage(Stage stage) {
+    MinesController.stage = stage;
   }
 }

@@ -13,6 +13,12 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
   private static Scene scene;
+  private static Stage stage;
+
+  public static void resizeStage(int a, int b) {
+    stage.setWidth(a);
+    stage.setHeight(b);
+  }
 
   public static void setRoot(AppUi appUi) {
     scene.setRoot(SceneManager.getUiRoot(appUi));
@@ -45,6 +51,6 @@ public class MainApp extends Application {
     stage.setScene(scene);
     stage.show();
 
-    MinesController.setStage(stage);
+    MainApp.stage = stage;
   }
 }
