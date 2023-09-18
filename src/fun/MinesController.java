@@ -22,6 +22,7 @@ public class MinesController implements Controller {
   // TODO Add remaining bombs left
   // TODO Proper styling?
   // TODO Happy face thing
+  // TODO Make timer stop when finished
 
   private static MinesController instance;
 
