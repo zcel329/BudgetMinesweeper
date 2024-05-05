@@ -1,1 +1,1 @@
-![alt text]([https://steamuserimages-a.akamaihd.net/ugc/951831809488305018/09F6A19ECFB0E39C3078FB1C9E5BC23BE99D9222/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=#000000&letterbox=false](https://i.imgur.com/oqjghC3.png))
+![alt text](https://i.imgur.com/oqjghC3.png)
